@@ -1,0 +1,105 @@
+===========================
+BACKOFFICE CUSTOMIZATION
+===========================
+
+1. Navigate to your custom Backoffice extention (In our case it is "ytsbackoffice") -> open resource folder and Open
+   ytsbackoffice-backoffice-config.xml and add below configuration inside the config tag -:
+
+		xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea"
+		xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms">
+
+
+2. Filter Tree -:
+
+	<!-- Filter Tree -->
+	<context component="explorer-tree" merge-by="module">
+		<n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+			<n:navigation-node id="ytsbackoffice.explorer.treenode.yourstanmay">
+				<n:type-node code="YTSDocument" id="ytsbackoffice.explorer.typenode.ytsdocument" />
+			</n:navigation-node>
+		</n:explorer-tree>
+	</context>
+
+    -> Add the below labels inside ytsbackoffice\resources\ytsbackoffice-backoffice-labels\labels_en.properties
+      
+       ytsbackoffice.explorer.treenode.yourstanmay = YoursTanmay
+       ytsbackoffice.explorer.typenode.ytsdocument = YTS Document
+    
+
+3. Advanced-Search Attribute for table -:
+
+	<!-- Advanced-Search Attribute for table  -->
+	<context type="YTSDocument" component="advanced-search" merge-by="type">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<advanced-search:field-list>
+				<advanced-search:field name="code" selected="true"  sortable="true"/>
+				<advanced-search:field name="docName" selected="true" sortable="true"/>
+				<advanced-search:field name="keywords" selected="true" sortable="true"/>
+				<advanced-search:field name="docType" selected="true" sortable="true"/>
+				<advanced-search:field name="language" selected="true" sortable="true"/>
+				<advanced-search:field name="visibility" selected="true" sortable="true"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+4. Custom condition to disable the attribute -:
+
+	<!-- Custom condition to disable the attribute -->
+	<context type="YTSDocument" component="editorAreaDynamicForms" module="platformbackoffice">
+		<df:dynamicForms>
+			<df:attribute id="disableURL" triggeredOn="*" qualifier="url" disabledIf="visibility==true" />
+		</df:dynamicForms>
+	</context>
+
+5. List view table column header -:
+
+	<!-- List view table column header -->
+	<context type="YTSDocument" merge-by="type" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="code" />
+			<list-view:column qualifier="docName" />
+			<list-view:column qualifier="docType" />
+			<list-view:column qualifier="language" />
+			<list-view:column qualifier="documentAge" />
+		</list-view:list-view>
+	</context>
+
+6. Customize view for table data -:
+
+	<!-- Customize view for table data -->
+	<context merge-by="type" type="YTSDocument" component="editor-area">
+		<ea:editorArea name="">
+			<ea:essentials>
+				<ea:essentialSection name="hmc.essential">
+					<ea:attribute qualifier="code" position="1"/>
+					<ea:attribute qualifier="docName" position="2"/>
+				</ea:essentialSection>
+			</ea:essentials>
+			<ea:tab name="hmc.tab.common" position="1">
+				<ea:section name="hmc.properties">
+					<ea:attribute qualifier="visibility"/>
+				</ea:section>
+			</ea:tab>
+			<ea:tab name="hmc.administration"/>
+		</ea:editorArea>
+	</context>
+
+7. Trigger -: ant all
+
+8. Start Hybris Server
+
+9. Open Backoffice and login
+
+10. Press "fn + f4" (this will open Backoffice Orchestrator)
+
+11. Click on hamburger menu placed at right top corner and select "Reset everything" and click on "yes" in dialog box
+
+12. Once the page reload successfully Press "fn + f4" to exist Backoffice Orchestrator)
+
+13. All set you can now verify your changes.
+
+
+
+
+=============================================================================================================================
+          
