@@ -1,0 +1,86 @@
+ ==========================
+        INTEGATION IN SAP HYBRIS
+        ==========================
+        
+        In SAP Hybris Integration is the process of connecting various systems and applications 
+        with the SAP Hybris platform to enable data exchange and functionality sharing between them.
+        
+        -------------------------------------------------------------------------------------------------------------
+        USE-CASE -: 
+        Create a Integration object for InboundYTSDocument in order to populate YTSDocumentModel.
+        -------------------------------------------------------------------------------------------------------------
+        
+        =========== Integration Object Creation from Integration UI Tool===================
+        
+        -> Open Integration UI Tool from backoffice.
+        -> Click on Integration Object Modeling and Click on + icon
+        -> Populate Name, Root Type and Integration Type as given below -:
+             Name -: InboundYTSDocument 
+             Root Type -: YTSDocument 
+             Integration Type -: INBOUND
+        
+        -> Click on create and open the newly created Integration object from drop down i.e "InboundYTSDocument" 
+        
+        =========== Selecting a attribute in Integration Object that need to populate when inbound request comes ===================
+        
+        -> After Opening the "InboundYTSDocument" integration object click on YTSDocument and check the following attributes -:
+            code, docName, docType, language, url, visibility
+        -> Click on SAVE
+        
+        ===========Create Authentication for your Integration Object================
+        => Click on Authentication from left hand side filter tree under Integration APIs
+        => Click on + icon and populate Integration Object and Authentication Type as Given below -:
+              Integration Object -: InboundYTSDocument
+              Authentication Type -: Basic
+        
+        ===========Configure and Test your Integration API======================
+        => Open your Integration Object and click on View MetaData.
+        => Click on EDMX and copy the Service Path from below and past it in your postmant
+              https://<your-host-name>/odata2webservices/InboundYTSDocument/$metadata
+        
+        =>Change <your-host-name> to "localhost:9002"
+        => In order to get the value for $metadata follow the below step -:
+              (i) In Postman Change the method to GET and remove /$metadata from url
+              (ii) Click on Authorization and select the Basic Auth
+              (iii) Provide the Backoffice credential for username & password (In our case -: username - admin / password -nimda )
+              (iv) Hit the API and copy the title of your object from response. i.e  "YTSDocuments" this will be the value of $metadata
+              
+        => Change the Method to POST and added /YTSDocuments at the end of url
+              https://localhost:9002/odata2webservices/InboundYTSDocument/YTSDocuments
+              
+        => Add Below Request Json on body (In post man click on body -> select raw and change the type to JSON from drop down)
+        {
+            "language": {
+                "code": "HINDI",
+                "integrationKey": "TEST_KEY"
+            },
+            "docName": "Test_docName",
+            "docType": {
+                "code": "PDF",
+                "integrationKey": "TEST_KEY"
+            },
+            "visibility": true,
+            "code": "QWER3232",
+            "url": "Test_url",
+            "localizedAttributes": [
+                {
+                    "language": "en",
+                    "docName": "Test_docName",
+                    "url": "Test_url"
+                }
+            ],
+            "integrationKey": "TEST_KEY"
+        }
+        
+        => Enable the below properties from HAC in order to Monitor Integation API  -:
+              inboundservices.monitoring.enabled=true
+        
+        => Hit the API and check in backoffice your entry will be created in YTSDocumentModel.
+        
+        => You can also monitor the Integration API from Integration UI Tool under Monitoring/Inbound.
+        
+        ************************************XXXXXXXXXXXXXXXXXXXXXXXXXXXX*******************************************
+        
+        
+
+=============================================================================================================================
