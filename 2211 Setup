@@ -1,0 +1,21 @@
+Follow Sap Document 
+First this --->>> https://help.sap.com/docs/SAP_COMMERCE_COMPOSABLE_STOREFRONT/cfcf687ce2544bba9799aa6c8314ecd0/6a04941777e242508bdd1dc395a15553.html#loio6a04941777e242508bdd1dc395a15553
+then ---->> https://help.sap.com/docs/SAP_COMMERCE_COMPOSABLE_STOREFRONT/cfcf687ce2544bba9799aa6c8314ecd0/5de67850bd8d487181fef9c9ba59a31d.html#loio5de67850bd8d487181fef9c9ba59a31d
+
+After install Angular and node we need to follow second document as well 
+
+ after this we need to create a class name as .npmrc and inside add
+ @spartacus:registry=https://73554900100900004337.npmsrv.base.repositories.cloud.sap/
+//73554900100900004337.npmsrv.base.repositories.cloud.sap/:_auth=<npmcredentialsfromrbsc>
+always-auth=true
+
+and replace <npmcredentialsfromrbsc> to MDAwMTMwOTczMC1yYWphdHNpbmdoOnpoeTVrR3FtRng4WHVWZnJ4NEhvNXY1T25Pc2dvZzlr then that is 
+
+like 
+@spartacus:registry=https://73554900100900004337.npmsrv.base.repositories.cloud.sap/
+//73554900100900004337.npmsrv.base.repositories.cloud.sap/:_auth=MDAwMTMwOTczMC1yYWphdHNpbmdoOnpoeTVrR3FtRng4WHVWZnJ4NEhvNXY1T25Pc2dvZzlr
+always-auth=true
+
+and existing class add  src\app\spartacus\spartacus-configuration.module.ts
+urlParameters: ['baseSite', 'language', 'currency'],baseSite: ['electronics-spa','apparel-uk-spa'],currency: ['USD', 'GBP',]
+
